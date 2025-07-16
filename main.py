@@ -1,26 +1,16 @@
-def trap(height):
-    if not height:
-        return 0
-        
-    left, right = 0, len(height) - 1
-    left_max = right_max = water = 0
+def maxSubArray(nums):
+    max_sum = nums[0]  # Initialize max_sum with first element
+    current_sum = nums[0]  # Initialize current_sum with first element
     
-    while left < right:
-        # Update the maximum height seen from left and right
-        left_max = max(left_max, height[left])
-        right_max = max(right_max, height[right])
-        
-        # Water trapped at current position is determined by the smaller of the two maxima
-        if left_max <= right_max:
-            water += left_max - height[left]
-            left += 1
-        else:
-            water += right_max - height[right]
-            right -= 1
-            
-    return water
+    for num in nums[1:]:
+        # For each element, decide whether to start new subarray or extend existing
+        current_sum = max(num, current_sum + num)
+        # Update max_sum if current_sum is larger
+        max_sum = max(max_sum, current_sum)
+    
+    return max_sum
 
-# Example usage
-if __name__ == "__main__":
-    height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
-    print(trap(height))  # Output: 6
+# Test with sample input
+nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+result = maxSubArray(nums)
+print(result)  # Output: 6
