@@ -30,7 +30,7 @@ public class JudgeController {
                 case "cpp":
                     filename = "main.cpp";
                     writeToFile(filename, code);
-                    compile = Runtime.getRuntime().exec("g++ main.cpp -o main");
+                    compile = Runtime.getRuntime().exec("/usr/bin/g++ main.cpp -o main");
                     if (compile.waitFor() != 0) return readError(compile.getErrorStream(), "Compilation Error");
                     break;
 
